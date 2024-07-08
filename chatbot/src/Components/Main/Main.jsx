@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { assets } from "../../assets/assets";
 import "./Main.css";
 import { Context } from "../../Context/Context";
+import { ThemeContext } from "../../Context/ThemeContext"; 
 const Main = () => {
 	const {
 		onSent,
@@ -13,10 +14,14 @@ const Main = () => {
 		input,
 	} = useContext(Context);
 
+	const { theme } = useContext(ThemeContext); 
+	const logoSrc = theme === "dark" ? assets.logo_monochrome : assets.logo_light;
+	const textColor = theme === "dark" ? "white" : "black"; 
+
 	return (
 		<div className="main">
 			<div className="nav">
-				<p>Gemini</p>
+				<p style={{ color: textColor }}>Prodigy</p> 
 			</div>
 			<div className="main-container">
 				{!showResults ? (
@@ -25,16 +30,17 @@ const Main = () => {
 							<p>
 								<span>Hello!</span>
 							</p>
-							<p>How Can i Help You Today?</p>
+							<p>How Can I Help You Today ?</p>
 						</div>
 					</>
 				) : (
 					<div className="result">
 						<div className="result-title">
+							<img src={assets.user} alt="user" />
 							<p>{recentPrompt}</p>
 						</div>
 						<div className="result-data">
-							<img src={assets.gemini_icon} alt="" />
+							<img src={logoSrc} alt="logo" /> 
 							{loading ? (
 								<div className="loader">
 									<hr />
@@ -70,7 +76,7 @@ const Main = () => {
 					</div>
 					<div className="bottom-info">
 						<p>
-							Gemini may display inaccurate info, including about people, so
+							Prodigy may display inaccurate info, including about people, so
 							double-check its responses.
 						</p>
 					</div>
